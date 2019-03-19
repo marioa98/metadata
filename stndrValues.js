@@ -156,13 +156,13 @@ function uniqElement(con, elements) {
     let nombreCompleto = elements[`nombreCompleto`];
     let repositorio = elements[`repositorio`];
 
-    con.query(`SELECT idAutor, nombreCompleto FROM autoresunicos WHERE idAutor = '${idAutor} OR nombreCompleto = ${nombreCompleto}'`, function (err, result, fields) {
-        if (result.length > 0) {
+    const script = 'SELECT idAutor, nombreCompleto FROM autoresunicos WHERE idAutor = ' + idAutor + ' OR nombreCompleto = ' + nombreCompleto;
+
+    con.query(script, function (err, result, fields) {
+        if (result.length == 0) {
             add = false;
         }
     });
-
-    console.log(add);
 
     // if (add == true) {
     //     con.query(`INSERT INTO autoresunicos(idAutor, nombreCompleto, repositorio) VALUES('${idAutor}','${nombreCompleto}', '${repositorio}')`);
