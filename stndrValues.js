@@ -119,7 +119,7 @@ function compareStrings(con) {
             this.iguales = result[index];
             for (let index2 = index + 1; index2 < result.length; index2++) {
                 let fuzzy = fuzz.partial_ratio(result[index].nombreCompleto, result[index2].nombreCompleto);
-                let ratio = fuzz.ratio(result[index].nombreCompleto, result[index2].nombreCompleto);
+                const ratio = fuzz.ratio(result[index].nombreCompleto, result[index2].nombreCompleto);
 
                 fuzzy = (fuzzy + ratio) / 2;
 
@@ -138,11 +138,11 @@ function chooseBestValue(con, element) {
 
     for (let index = 0; index < (element.length - 1); index++) {
         for (let index2 = index + 1; index2 < element.length; index2++) {
-            let nombre1 = element[index].nombreCompleto;
-            let nombre2 = element[index2].nombreCompleto;
+            const nombre1 = element[index].nombreCompleto;
+            const nombre2 = element[index2].nombreCompleto;
 
             if (nombre1.length > nombre2.length) {
-                this.posicion = index;
+                posicion = index;
             }
         }
     }
@@ -156,13 +156,27 @@ function uniqElement(con, elements) {
     let nombreCompleto = elements[`nombreCompleto`];
     let repositorio = elements[`repositorio`];
 
-    con.query('SELECT * FROM autoresunicos', function (err, result, fields) {
+    con.query(`SELECT idAutor, nombreCompleto FROM autoresunicos WHERE idAutor = '${idAutor} OR nombreCompleto = ${nombreCompleto}'`, function (err, result, fields) {
         if (result.length > 0) {
-            console.log(result);
-        } else {
-            console.log('Empty table');
+            add = false;
         }
     });
+
+    console.log(add);
+
+    // if (add == true) {
+    //     con.query(`INSERT INTO autoresunicos(idAutor, nombreCompleto, repositorio) VALUES('${idAutor}','${nombreCompleto}', '${repositorio}')`);
+    // }
+}
+
+function deletedElements(con, elements, idNuevo) {
+
+    let add = true;
+
+    for (let index = 0; index < array.length; index++) {
+        const element = array[index];
+
+    }
 }
 
 // function uniqElement(con, e) {
